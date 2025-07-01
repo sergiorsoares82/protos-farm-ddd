@@ -3,6 +3,7 @@ export type UserConstructorProps = {
   username: string;
   email: string;
   password: string;
+  is_active?: boolean;
   created_at?: Date;
   updated_at?: Date;
 };
@@ -17,6 +18,7 @@ export class User {
   username: string;
   email: string;
   password: string;
+  is_active: boolean;
   created_at: Date;
   updated_at: Date;
 
@@ -26,6 +28,7 @@ export class User {
     this.username = props.username;
     this.email = props.email;
     this.password = props.password;
+    this.is_active = props.is_active ?? true;
     this.created_at = props.created_at ?? new Date();
     this.updated_at = props.updated_at ?? new Date();
   }
@@ -34,11 +37,39 @@ export class User {
     return new User(props);
   }
 
-  update(props: Partial<UserConstructorProps>): User {
-    return new User({
-      ...this,
-      ...props,
-      updated_at: new Date(),
-    });
+  changeUserName(username: string): void {
+    this.username = username;
+    this.updated_at = new Date();
+  }
+
+  changeEmail(email: string): void {
+    this.email = email;
+    this.updated_at = new Date();
+  }
+
+  changePassword(password: string): void {
+    this.password = password;
+    this.updated_at = new Date();
+  }
+
+  activate(): void {
+    this.is_active = true;
+    this.updated_at = new Date();
+  }
+
+  deactivate(): void {
+    this.is_active = false;
+    this.updated_at = new Date();
+  }
+
+  toJSON() {
+    return {
+      user_id: this.user_id,
+      username: this.username,
+      email: this.email,
+      is_active: this.is_active,
+      created_at: this.created_at,
+      updated_at: this.updated_at,
+    };
   }
 }
