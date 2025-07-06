@@ -93,6 +93,7 @@ describe("User Unit Tests", () => {
       expect(validateSpy).toHaveBeenCalledWith(user);
     });
   });
+
   describe("user_id field", () => {
     it("should create user_id field when null is received", () => {
       const uuid = null as any;
@@ -131,6 +132,20 @@ describe("User Unit Tests", () => {
       });
 
       expect(user.user_id).toBeInstanceOf(Uuid);
+    });
+  });
+
+  describe("validate method", () => {
+    it("should invalidate a user with empty username", () => {
+      expect(() => {
+        User.create({
+          username: "",
+          email: "john.doe@gmail.com",
+          password: "secure_password",
+        });
+      }).containsErrorMessages({
+        username: ["username should not be empty"],
+      });
     });
   });
 });
