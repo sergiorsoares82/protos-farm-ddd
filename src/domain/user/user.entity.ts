@@ -1,5 +1,9 @@
+import { EntityValidationError } from "../shared/validators/validation.error";
+import { Uuid } from "../shared/value-objects/uuid.vo";
+import { UserValidatorFactory } from "./user.validator";
+
 export type UserConstructorProps = {
-  user_id?: string;
+  user_id?: Uuid;
   username: string;
   email: string;
   password: string;
@@ -14,7 +18,7 @@ export type UserCreateCommand = Omit<
 >;
 
 export class User {
-  user_id: string;
+  user_id: Uuid;
   username: string;
   email: string;
   password: string;
@@ -23,8 +27,7 @@ export class User {
   updated_at: Date;
 
   constructor(props: UserConstructorProps) {
-    // @ts-ignore
-    this.user_id = props.user_id;
+    this.user_id = props.user_id ?? new Uuid();
     this.username = props.username;
     this.email = props.email;
     this.password = props.password;
@@ -34,22 +37,27 @@ export class User {
   }
 
   static create(props: UserCreateCommand): User {
-    return new User(props);
+    const user = new User(props);
+    User.validate(user);
+    return user;
   }
 
   changeUserName(username: string): void {
     this.username = username;
     this.updated_at = new Date();
+    User.validate(this);
   }
 
   changeEmail(email: string): void {
     this.email = email;
     this.updated_at = new Date();
+    User.validate(this);
   }
 
   changePassword(password: string): void {
     this.password = password;
     this.updated_at = new Date();
+    User.validate(this);
   }
 
   activate(): void {
@@ -60,6 +68,14 @@ export class User {
   deactivate(): void {
     this.is_active = false;
     this.updated_at = new Date();
+  }
+
+  static validate(entity: User) {
+    const validator = UserValidatorFactory.create();
+    const isValid = validator.validate(entity);
+    if (!isValid) {
+      throw new EntityValidationError(validator.errors);
+    }
   }
 
   toJSON() {
