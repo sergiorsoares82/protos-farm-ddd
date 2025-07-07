@@ -25,7 +25,7 @@ export class UserFakeBuilder<TBuild = any> {
     return new UserFakeBuilder<User>();
   }
 
-  static theCategories(countObjs: number) {
+  static theUsers(countObjs: number) {
     return new UserFakeBuilder<User[]>(countObjs);
   }
 
@@ -41,8 +41,13 @@ export class UserFakeBuilder<TBuild = any> {
     return this;
   }
 
-  withName(valueOrFactory: PropOrFactory<string>) {
+  withUsername(valueOrFactory: PropOrFactory<string>) {
     this._username = valueOrFactory;
+    return this;
+  }
+
+  withEmail(valueOrFactory: PropOrFactory<string>) {
+    this._email = valueOrFactory;
     return this;
   }
 
@@ -66,7 +71,7 @@ export class UserFakeBuilder<TBuild = any> {
     return this;
   }
 
-  withInvalidNameTooLong(value?: string) {
+  withInvalidUsernameTooLong(value?: string) {
     this._username = value ?? this.chance.word({ length: 256 });
     return this;
   }
