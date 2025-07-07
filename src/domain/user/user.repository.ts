@@ -1,4 +1,4 @@
-import type { IRepository } from "../shared/repository-interface";
+import type { IRepository } from "../shared/repository/repository-interface";
 import type { Uuid } from "../shared/value-objects/uuid.vo";
 import type { User } from "./user.entity";
 
