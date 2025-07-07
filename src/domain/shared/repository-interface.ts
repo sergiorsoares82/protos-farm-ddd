@@ -1,4 +1,6 @@
 import type { Entity } from "./entity";
+import type { SearchParams } from "./repository/search-params";
+import type { SearchResult } from "./repository/search-result";
 import type { ValueObject } from "./value-object";
 
 export interface IRepository<E extends Entity, EntityId extends ValueObject> {
@@ -11,4 +13,14 @@ export interface IRepository<E extends Entity, EntityId extends ValueObject> {
   findAll(): Promise<E[]>;
 
   getEntity(): new (...args: any[]) => E;
+}
+
+export interface ISearchableRepository<
+  E extends Entity,
+  EntityId extends ValueObject,
+  SearchInput = SearchParams,
+  SearchOutput = SearchResult
+> extends IRepository<E, EntityId> {
+  sortableFields: string[];
+  search(props: SearchInput): Promise<SearchOutput>;
 }
