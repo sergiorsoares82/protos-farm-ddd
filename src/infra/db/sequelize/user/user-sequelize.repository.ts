@@ -11,6 +11,7 @@ import {
 } from "../../../../domain/user/user.repository";
 import type { UserModel } from "./user.model";
 import { NotFoundError } from "../../../../domain/shared/errors/not-found.error";
+import { UserModelMapper } from "./user-model-mapper";
 
 export class UserSequelizeRepository implements IUserRepository {
   sortableFields: string[] = ["username", "created_at"];
@@ -34,15 +35,16 @@ export class UserSequelizeRepository implements IUserRepository {
     });
     return new UserSearchResult({
       items: models.map((model) => {
-        return new User({
-          user_id: new Uuid(model.user_id),
-          username: model.username,
-          email: model.email,
-          password: model.password,
-          is_active: model.is_active,
-          created_at: model.created_at,
-          updated_at: model.updated_at,
-        });
+        return UserModelMapper.toEntity(model);
+        // return new User({
+        //   user_id: new Uuid(model.user_id),
+        //   username: model.username,
+        //   email: model.email,
+        //   password: model.password,
+        //   is_active: model.is_active,
+        //   created_at: model.created_at,
+        //   updated_at: model.updated_at,
+        // });
       }),
       current_page: props.page,
       per_page: props.per_page,
@@ -51,29 +53,37 @@ export class UserSequelizeRepository implements IUserRepository {
   }
 
   async insert(entity: User): Promise<void> {
-    await this.userModel.create({
-      user_id: entity.user_id.id,
-      username: entity.username,
-      email: entity.email,
-      password: entity.password,
-      is_active: entity.is_active,
-      created_at: entity.created_at,
-      updated_at: entity.updated_at,
-    });
+    const modelProps = UserModelMapper.toModel(entity);
+    await this.userModel.create(modelProps.toJSON());
+    // await this.userModel.create({
+    //   user_id: entity.user_id.id,
+    //   username: entity.username,
+    //   email: entity.email,
+    //   password: entity.password,
+    //   is_active: entity.is_active,
+    //   created_at: entity.created_at,
+    //   updated_at: entity.updated_at,
+    // });
   }
 
   async bulkInsert(entities: User[]): Promise<void> {
-    await this.userModel.bulkCreate(
-      entities.map((entity) => ({
-        user_id: entity.user_id.id,
-        username: entity.username,
-        email: entity.email,
-        password: entity.password,
-        is_active: entity.is_active,
-        created_at: entity.created_at,
-        updated_at: entity.updated_at,
-      }))
+    const modelsProps = entities.map((entity) =>
+      UserModelMapper.toModel(entity).toJSON()
     );
+
+    await this.userModel.bulkCreate(modelsProps);
+    // Uncomment the following code if you want to use the commented version
+    // await this.userModel.bulkCreate(
+    //   entities.map((entity) => ({
+    //     user_id: entity.user_id.id,
+    //     username: entity.username,
+    //     email: entity.email,
+    //     password: entity.password,
+    //     is_active: entity.is_active,
+    //     created_at: entity.created_at,
+    //     updated_at: entity.updated_at,
+    //   }))
+    // );
   }
 
   async update(entity: User): Promise<void> {
@@ -82,18 +92,23 @@ export class UserSequelizeRepository implements IUserRepository {
     if (!model) {
       throw new NotFoundError(id, this.getEntity());
     }
-    await this.userModel.update(
-      {
-        user_id: entity.user_id.id,
-        username: entity.username,
-        email: entity.email,
-        password: entity.password,
-        is_active: entity.is_active,
-        created_at: entity.created_at,
-        updated_at: entity.updated_at,
-      },
-      { where: { user_id: id } }
-    );
+
+    const modelProps = UserModelMapper.toModel(entity);
+    await this.userModel.update(modelProps.toJSON(), {
+      where: { user_id: id },
+    });
+    // await this.userModel.update(
+    //   {
+    //     user_id: entity.user_id.id,
+    //     username: entity.username,
+    //     email: entity.email,
+    //     password: entity.password,
+    //     is_active: entity.is_active,
+    //     created_at: entity.created_at,
+    //     updated_at: entity.updated_at,
+    //   },
+    //   { where: { user_id: id } }
+    // );
   }
 
   async delete(entity_id: Uuid): Promise<void> {
