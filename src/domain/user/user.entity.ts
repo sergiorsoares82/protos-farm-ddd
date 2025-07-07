@@ -1,6 +1,7 @@
 import { Entity } from "../shared/entity";
 import { EntityValidationError } from "../shared/validators/validation.error";
 import { Uuid } from "../shared/value-objects/uuid.vo";
+import { UserFakeBuilder } from "./user-fake.builder";
 import { UserValidatorFactory } from "./user.validator";
 
 export type UserConstructorProps = {
@@ -82,6 +83,10 @@ export class User extends Entity {
     if (!isValid) {
       throw new EntityValidationError(validator.errors);
     }
+  }
+
+  static fake() {
+    return UserFakeBuilder;
   }
 
   toJSON() {
