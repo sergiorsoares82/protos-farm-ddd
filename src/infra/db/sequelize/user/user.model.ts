@@ -6,11 +6,21 @@ import {
   Table,
 } from "sequelize-typescript";
 
+export type UserModelProps = {
+  user_id: string;
+  username: string;
+  email: string;
+  password: string;
+  is_active: boolean;
+  created_at: Date;
+  updated_at: Date;
+};
+
 @Table({
   tableName: "users",
   timestamps: false,
 })
-export class UserModel extends Model {
+export class UserModel extends Model<UserModelProps> {
   @PrimaryKey
   @Column({ type: DataType.UUID })
   declare user_id: string;

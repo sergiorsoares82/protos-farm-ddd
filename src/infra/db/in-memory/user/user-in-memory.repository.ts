@@ -1,15 +1,22 @@
 import type { SortDirection } from "../../../../domain/shared/repository/search-params";
 import { Uuid } from "../../../../domain/shared/value-objects/uuid.vo";
 import { User } from "../../../../domain/user/user.entity";
+import type {
+  IUserRepository,
+  UserFilter,
+} from "../../../../domain/user/user.repository";
 import { InMemorySearchableRepository } from "../in-memory.repository";
 
-export class UserInMemoryRepository extends InMemorySearchableRepository<
-  User,
-  Uuid
-> {
+export class UserInMemoryRepository
+  extends InMemorySearchableRepository<User, Uuid>
+  implements IUserRepository
+{
   sortableFields: string[] = ["username", "created_at"];
 
-  protected async applyFilter(items: User[], filter: string): Promise<User[]> {
+  protected async applyFilter(
+    items: User[],
+    filter: UserFilter
+  ): Promise<User[]> {
     if (!filter) {
       return items;
     }
@@ -18,6 +25,7 @@ export class UserInMemoryRepository extends InMemorySearchableRepository<
       return i.username.toLowerCase().includes(filter.toLowerCase());
     });
   }
+
   getEntity(): new (...args: any[]) => User {
     return User;
   }
