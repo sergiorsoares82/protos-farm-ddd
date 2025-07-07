@@ -1,4 +1,4 @@
-import { User } from "../../../../domain/user/user.entity";
+import { User } from "../../../../../domain/user/user.entity";
 import { UserInMemoryRepository } from "../user-in-memory.repository";
 
 describe("UserInMemoryRepository", () => {

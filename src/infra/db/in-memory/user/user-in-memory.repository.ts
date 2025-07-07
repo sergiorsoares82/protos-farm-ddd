@@ -1,9 +1,7 @@
-import type { SortDirection } from "../../../domain/shared/repository/search-params";
-import { Uuid } from "../../../domain/shared/value-objects/uuid.vo";
-import { User } from "../../../domain/user/user.entity";
-import {
-  InMemorySearchableRepository
-} from "../in-memory.repository";
+import type { SortDirection } from "../../../../domain/shared/repository/search-params";
+import { Uuid } from "../../../../domain/shared/value-objects/uuid.vo";
+import { User } from "../../../../domain/user/user.entity";
+import { InMemorySearchableRepository } from "../in-memory.repository";
 
 export class UserInMemoryRepository extends InMemorySearchableRepository<
   User,
