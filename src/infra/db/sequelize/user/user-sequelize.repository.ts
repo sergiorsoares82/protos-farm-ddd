@@ -108,6 +108,10 @@ export class UserSequelizeRepository implements IUserRepository {
   async findById(entity_id: Uuid): Promise<User> {
     const user = await this._get(entity_id.id);
 
+    if (!user) {
+      return null;
+    }
+
     return new User({
       user_id: new Uuid(user.user_id),
       username: user.username,
@@ -135,7 +139,7 @@ export class UserSequelizeRepository implements IUserRepository {
     });
   }
   getEntity(): new (...args: any[]) => User {
-    throw new Error("Method not implemented.");
+    return User;
   }
 
   private async _get(id: string) {
