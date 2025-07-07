@@ -6,13 +6,7 @@ describe("UserInMemoryRepository", () => {
 
   beforeEach(() => (repository = new UserInMemoryRepository()));
   it("should no filter items when filter object is null", async () => {
-    const items = [
-      User.create({
-        username: "test",
-        email: "test@test.com",
-        password: "123",
-      }),
-    ];
+    const items = [User.fake().aUser().build()];
     const filterSpy = jest.spyOn(items, "filter" as any);
 
     const itemsFiltered = await repository["applyFilter"](items, null);
@@ -22,9 +16,9 @@ describe("UserInMemoryRepository", () => {
 
   it("should filter items using filter parameter", async () => {
     const items = [
-      new User({ username: "test", email: "test@test.com", password: "123" }),
-      new User({ username: "TEST", email: "test@test.com", password: "123" }),
-      new User({ username: "fake", email: "test@test.com", password: "123" }),
+      User.fake().aUser().withUsername("test").build(),
+      User.fake().aUser().withUsername("TEST").build(),
+      User.fake().aUser().withUsername("fake").build(),
     ];
     const filterSpy = jest.spyOn(items, "filter" as any);
 
@@ -37,24 +31,21 @@ describe("UserInMemoryRepository", () => {
     const created_at = new Date();
 
     const items = [
-      new User({
-        username: "test",
-        email: "test@test.com",
-        password: "123",
-        created_at,
-      }),
-      new User({
-        username: "TEST",
-        email: "test@test.com",
-        password: "123",
-        created_at: new Date(created_at.getTime() + 100),
-      }),
-      new User({
-        username: "fake",
-        email: "test@test.com",
-        password: "123",
-        created_at: new Date(created_at.getTime() + 200),
-      }),
+      User.fake()
+        .aUser()
+        .withUsername("test")
+        .withCreatedAt(created_at)
+        .build(),
+      User.fake()
+        .aUser()
+        .withUsername("TEST")
+        .withCreatedAt(new Date(created_at.getTime() + 100))
+        .build(),
+      User.fake()
+        .aUser()
+        .withUsername("fake")
+        .withCreatedAt(new Date(created_at.getTime() + 200))
+        .build(),
     ];
 
     const itemsSorted = await repository["applySort"](items, null, null);
@@ -63,9 +54,9 @@ describe("UserInMemoryRepository", () => {
 
   it("should sort by name", async () => {
     const items = [
-      User.create({ username: "c", email: "john@gmail.com", password: "123" }),
-      User.create({ username: "b", email: "john@gmail.com", password: "123" }),
-      User.create({ username: "a", email: "john@gmail.com", password: "123" }),
+      User.fake().aUser().withUsername("c").build(),
+      User.fake().aUser().withUsername("b").build(),
+      User.fake().aUser().withUsername("a").build(),
     ];
 
     let itemsSorted = await repository["applySort"](items, "username", "asc");
