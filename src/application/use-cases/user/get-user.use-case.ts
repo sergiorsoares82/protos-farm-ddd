@@ -1,7 +1,7 @@
-import { NotFoundError } from "../../domain/shared/errors/not-found.error";
-import { Uuid } from "../../domain/shared/value-objects/uuid.vo";
-import { User } from "../../domain/user/user.entity";
-import type { IUserRepository } from "../../domain/user/user.repository";
+import { NotFoundError } from "../../../domain/shared/errors/not-found.error";
+import { Uuid } from "../../../domain/shared/value-objects/uuid.vo";
+import { User } from "../../../domain/user/user.entity";
+import type { IUserRepository } from "../../../domain/user/user.repository";
 import type { IUseCase } from "../shared/use-case.interface";
 
 export class GetUserUseCase implements IUseCase<GetUserInput, GetUserOutput> {

@@ -1,10 +1,10 @@
-import { NotFoundError } from "../../../../domain/shared/errors/not-found.error";
+import { NotFoundError } from "../../../../../domain/shared/errors/not-found.error";
 import {
   InvalidUuidError,
   Uuid,
-} from "../../../../domain/shared/value-objects/uuid.vo";
-import { User } from "../../../../domain/user/user.entity";
-import { UserInMemoryRepository } from "../../../../infra/db/in-memory/user/user-in-memory.repository";
+} from "../../../../../domain/shared/value-objects/uuid.vo";
+import { User } from "../../../../../domain/user/user.entity";
+import { UserInMemoryRepository } from "../../../../../infra/db/in-memory/user/user-in-memory.repository";
 import { UpdateUserUseCase } from "../../update-user.use-case";
 
 describe("UpdateUserUseCase Unit Test", () => {

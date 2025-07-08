@@ -1,5 +1,5 @@
-import { Uuid } from "../../domain/shared/value-objects/uuid.vo";
-import type { IUserRepository } from "../../domain/user/user.repository";
+import { Uuid } from "../../../domain/shared/value-objects/uuid.vo";
+import type { IUserRepository } from "../../../domain/user/user.repository";
 import type { IUseCase } from "../shared/use-case.interface";
 
 export class DeleteUserUseCase

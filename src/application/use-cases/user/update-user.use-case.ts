@@ -1,9 +1,9 @@
 import { Not } from "sequelize-typescript";
-import { Uuid } from "../../domain/shared/value-objects/uuid.vo";
-import type { IUserRepository } from "../../domain/user/user.repository";
+import { Uuid } from "../../../domain/shared/value-objects/uuid.vo";
+import type { IUserRepository } from "../../../domain/user/user.repository";
 import type { IUseCase } from "../shared/use-case.interface";
-import { User } from "../../domain/user/user.entity";
-import { NotFoundError } from "../../domain/shared/errors/not-found.error";
+import { User } from "../../../domain/user/user.entity";
+import { NotFoundError } from "../../../domain/shared/errors/not-found.error";
 
 export class UpdateUserUseCase
   implements IUseCase<UpdateUserInput, UpdateUserOutput>

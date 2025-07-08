@@ -1,13 +1,13 @@
-import { NotFoundError } from "../../../../domain/shared/errors/not-found.error";
+import { NotFoundError } from "../../../../../domain/shared/errors/not-found.error";
 import {
   InvalidUuidError,
   Uuid,
-} from "../../../../domain/shared/value-objects/uuid.vo";
-import { User } from "../../../../domain/user/user.entity";
-import { UserInMemoryRepository } from "../../../../infra/db/in-memory/user/user-in-memory.repository";
-import { UserSequelizeRepository } from "../../../../infra/db/sequelize/user/user-sequelize.repository";
-import { UserModel } from "../../../../infra/db/sequelize/user/user.model";
-import { setupSequelize } from "../../../../infra/shared/testing/helpers";
+} from "../../../../../domain/shared/value-objects/uuid.vo";
+import { User } from "../../../../../domain/user/user.entity";
+import { UserInMemoryRepository } from "../../../../../infra/db/in-memory/user/user-in-memory.repository";
+import { UserSequelizeRepository } from "../../../../../infra/db/sequelize/user/user-sequelize.repository";
+import { UserModel } from "../../../../../infra/db/sequelize/user/user.model";
+import { setupSequelize } from "../../../../../infra/shared/testing/helpers";
 import { GetUserUseCase } from "../../get-user.use-case";
 
 describe("GetUserUseCase Unit Test", () => {

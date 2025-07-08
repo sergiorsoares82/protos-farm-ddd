@@ -1,8 +1,8 @@
-import { Uuid } from "../../../../domain/shared/value-objects/uuid.vo";
-import { UserInMemoryRepository } from "../../../../infra/db/in-memory/user/user-in-memory.repository";
-import { UserSequelizeRepository } from "../../../../infra/db/sequelize/user/user-sequelize.repository";
-import { UserModel } from "../../../../infra/db/sequelize/user/user.model";
-import { setupSequelize } from "../../../../infra/shared/testing/helpers";
+import { Uuid } from "../../../../../domain/shared/value-objects/uuid.vo";
+import { UserInMemoryRepository } from "../../../../../infra/db/in-memory/user/user-in-memory.repository";
+import { UserSequelizeRepository } from "../../../../../infra/db/sequelize/user/user-sequelize.repository";
+import { UserModel } from "../../../../../infra/db/sequelize/user/user.model";
+import { setupSequelize } from "../../../../../infra/shared/testing/helpers";
 import { CreateUserUseCase } from "../../create-user.use-case";
 
 describe("CreateUserUseCase", () => {

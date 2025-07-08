@@ -1,5 +1,5 @@
-import { User } from "../../domain/user/user.entity";
-import type { IUserRepository } from "../../domain/user/user.repository";
+import { User } from "../../../domain/user/user.entity";
+import type { IUserRepository } from "../../../domain/user/user.repository";
 import type { IUseCase } from "../shared/use-case.interface";
 
 export class CreateUserUseCase
