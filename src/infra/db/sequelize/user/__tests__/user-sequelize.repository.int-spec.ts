@@ -288,7 +288,7 @@ describe("UserSequelizeRepository Integration Tests", () => {
           search_params: new UserSearchParams({
             page: 1,
             per_page: 2,
-            sort: "name",
+            sort: "username",
             filter: "TEST",
           }),
           search_result: new UserSearchResult({
@@ -302,7 +302,7 @@ describe("UserSequelizeRepository Integration Tests", () => {
           search_params: new UserSearchParams({
             page: 2,
             per_page: 2,
-            sort: "name",
+            sort: "username",
             filter: "TEST",
           }),
           search_result: new UserSearchResult({

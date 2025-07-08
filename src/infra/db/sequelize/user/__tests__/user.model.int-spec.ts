@@ -1,11 +1,12 @@
 import { DataType, Sequelize } from "sequelize-typescript";
 import { UserModel } from "../user.model";
-import { User } from "../../../../../domain/user/user.entity";
+import { Config } from "../../../../shared/config";
 
 describe("UserModel (integration tests)", () => {
   let sequelize: Sequelize;
 
   beforeEach(async () => {
+    console.log(Config.db());
     sequelize = new Sequelize({
       dialect: "sqlite",
       storage: ":memory:",
@@ -18,7 +19,7 @@ describe("UserModel (integration tests)", () => {
   test("mapping props", () => {
     const attributesMap = UserModel.getAttributes();
     const attributes = Object.keys(attributesMap);
-    console.log(attributesMap, attributes);
+
     expect(attributes).toStrictEqual([
       "user_id",
       "username",
