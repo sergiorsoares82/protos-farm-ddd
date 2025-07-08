@@ -7,7 +7,7 @@ import { User } from "../../../../../domain/user/user.entity";
 import { UserSequelizeRepository } from "../../../../../infra/db/sequelize/user/user-sequelize.repository";
 import { UserModel } from "../../../../../infra/db/sequelize/user/user.model";
 import { setupSequelize } from "../../../../../infra/shared/testing/helpers";
-import { DeleteUserUseCase } from "../../delete-user.use-case";
+import { DeleteUserUseCase } from "../../delete-user/delete-user.use-case";
 
 describe("DeleteUserUseCase Unit Test", () => {
   let useCase: DeleteUserUseCase;

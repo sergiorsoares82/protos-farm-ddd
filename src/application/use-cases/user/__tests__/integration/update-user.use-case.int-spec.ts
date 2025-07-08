@@ -8,7 +8,7 @@ import { UserInMemoryRepository } from "../../../../../infra/db/in-memory/user/u
 import { UserSequelizeRepository } from "../../../../../infra/db/sequelize/user/user-sequelize.repository";
 import { UserModel } from "../../../../../infra/db/sequelize/user/user.model";
 import { setupSequelize } from "../../../../../infra/shared/testing/helpers";
-import { UpdateUserUseCase } from "../../update-user.use-case";
+import { UpdateUserUseCase } from "../../update-user/update-user.use-case";
 
 describe("UpdateUserUseCase Unit Test", () => {
   let useCase: UpdateUserUseCase;

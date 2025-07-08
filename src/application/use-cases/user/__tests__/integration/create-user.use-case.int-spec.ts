@@ -3,7 +3,7 @@ import { UserInMemoryRepository } from "../../../../../infra/db/in-memory/user/u
 import { UserSequelizeRepository } from "../../../../../infra/db/sequelize/user/user-sequelize.repository";
 import { UserModel } from "../../../../../infra/db/sequelize/user/user.model";
 import { setupSequelize } from "../../../../../infra/shared/testing/helpers";
-import { CreateUserUseCase } from "../../create-user.use-case";
+import { CreateUserUseCase } from "../../create-user/create-user.use-case";
 
 describe("CreateUserUseCase", () => {
   let useCase: CreateUserUseCase;

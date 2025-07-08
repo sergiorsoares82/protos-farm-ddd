@@ -2,7 +2,7 @@ import { User } from "../../../../../domain/user/user.entity";
 import { UserSearchResult } from "../../../../../domain/user/user.repository";
 import { UserInMemoryRepository } from "../../../../../infra/db/in-memory/user/user-in-memory.repository";
 import { UserOutputMapper } from "../../common/user-output";
-import { ListUserUseCase } from "../../list-user.use-case";
+import { ListUserUseCase } from "../../list-user/list-user.use-case";
 
 describe("ListUserUseCase Unit Test", () => {
   let useCase: ListUserUseCase;

@@ -5,7 +5,7 @@ import { UserSequelizeRepository } from "../../../../../infra/db/sequelize/user/
 import { UserModel } from "../../../../../infra/db/sequelize/user/user.model";
 import { setupSequelize } from "../../../../../infra/shared/testing/helpers";
 import { UserOutputMapper } from "../../common/user-output";
-import { ListUserUseCase } from "../../list-user.use-case";
+import { ListUserUseCase } from "../../list-user/list-user.use-case";
 
 describe("ListUserUseCase Integration Test", () => {
   let useCase: ListUserUseCase;

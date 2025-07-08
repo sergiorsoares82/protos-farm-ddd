@@ -5,7 +5,7 @@ import {
 } from "../../../../../domain/shared/value-objects/uuid.vo";
 import { User } from "../../../../../domain/user/user.entity";
 import { UserInMemoryRepository } from "../../../../../infra/db/in-memory/user/user-in-memory.repository";
-import { GetUserUseCase } from "../../get-user.use-case";
+import { GetUserUseCase } from "../../get-user/get-user.use-case";
 
 describe("GetUserUseCase Unit Test", () => {
   let useCase: GetUserUseCase;

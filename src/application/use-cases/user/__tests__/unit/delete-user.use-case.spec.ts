@@ -5,7 +5,7 @@ import {
 } from "../../../../../domain/shared/value-objects/uuid.vo";
 import { User } from "../../../../../domain/user/user.entity";
 import { UserInMemoryRepository } from "../../../../../infra/db/in-memory/user/user-in-memory.repository";
-import { DeleteUserUseCase } from "../../delete-user.use-case";
+import { DeleteUserUseCase } from "../../delete-user/delete-user.use-case";
 
 describe("DeleteUserUseCase Unit Test", () => {
   let useCase: DeleteUserUseCase;
