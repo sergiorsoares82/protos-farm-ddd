@@ -28,7 +28,7 @@ export type CreateUserInput = {
   username: string;
   email: string;
   password: string;
-  is_active: boolean;
+  is_active?: boolean;
 };
 
 export type CreateUserOutput = {
