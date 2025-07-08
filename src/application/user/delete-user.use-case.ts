@@ -9,7 +9,7 @@ export class DeleteUserUseCase
 
   async execute(input: DeleteUserInput): Promise<void> {
     const uuid = new Uuid(input.id);
-    await this.userRepository.findById(uuid);
+    await this.userRepository.delete(uuid);
   }
 }
 
