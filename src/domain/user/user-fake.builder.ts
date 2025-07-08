@@ -90,7 +90,7 @@ export class UserFakeBuilder<TBuild = any> {
           created_at: this.callFactory(this._created_at, index),
         }),
       });
-      //category.validate();
+      user.validate();
       return user;
     });
     return this.countObjs === 1 ? (users[0] as any) : (users as any);

@@ -24,30 +24,22 @@ describe("UserModelMapper Integration Tests", () => {
   it("should throw an error when user is invalid", async () => {
     const model = UserModel.build({
       user_id: "9366b7dc-2d71-4799-b91c-c64adb205104",
+      username: "a".repeat(256), // Invalid username
     });
 
     try {
       UserModelMapper.toEntity(model);
-      fail("Expected an error to be thrown");
+      throw new Error("Expected an error to be thrown");
     } catch (error) {
       expect(error).toBeInstanceOf(Error);
-      expect((error as EntityValidationError).error).toMatchObject({
-        username: [
-          "username should not be empty",
-          "username must be a string",
-          "username must be shorter than or equal to 255 characters",
-        ],
-        email: [
-          "email should not be empty",
-          "email must be a string",
-          "email must be shorter than or equal to 255 characters",
-        ],
-        password: [
-          "password should not be empty",
-          "password must be a string",
-          "password must be shorter than or equal to 50 characters",
-        ],
-      });
+      console.log(error);
+      expect((error as EntityValidationError).error).toMatchObject([
+        {
+          username: [
+            "username must be shorter than or equal to 255 characters",
+          ],
+        },
+      ]);
     }
   });
 

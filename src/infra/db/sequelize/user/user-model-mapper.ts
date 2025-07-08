@@ -1,3 +1,4 @@
+import { EntityValidationError } from "../../../../domain/shared/validators/validation.error";
 import { Uuid } from "../../../../domain/shared/value-objects/uuid.vo";
 import { User } from "../../../../domain/user/user.entity";
 import { UserModel } from "./user.model";
@@ -16,7 +17,7 @@ export class UserModelMapper {
   }
 
   static toEntity(model: UserModel): User {
-    const entity = new User({
+    const user = new User({
       user_id: new Uuid(model.user_id),
       username: model.username,
       email: model.email,
@@ -26,7 +27,13 @@ export class UserModelMapper {
       updated_at: model.updated_at,
     });
 
-    User.validate(entity);
-    return entity;
+    // User.validate(user);
+
+    user.validate();
+
+    if (user.notification.hasErrors()) {
+      throw new EntityValidationError(user.notification.toJSON());
+    }
+    return user;
   }
 }

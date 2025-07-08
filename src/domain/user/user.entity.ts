@@ -45,26 +45,30 @@ export class User extends Entity {
 
   static create(props: UserCreateCommand): User {
     const user = new User(props);
-    User.validate(user);
+    // User.validate(user);
+    user.validate(["username", "email", "password"]);
     return user;
   }
 
   changeUserName(username: string): void {
     this.username = username;
     this.updated_at = new Date();
-    User.validate(this);
+    // User.validate(user);
+    this.validate(["username", "email", "password"]);
   }
 
   changeEmail(email: string): void {
     this.email = email;
     this.updated_at = new Date();
-    User.validate(this);
+    // User.validate(user);
+    this.validate(["username", "email", "password"]);
   }
 
   changePassword(password: string): void {
     this.password = password;
     this.updated_at = new Date();
-    User.validate(this);
+    // User.validate(user);
+    this.validate(["username"]);
   }
 
   activate(): void {
@@ -77,12 +81,17 @@ export class User extends Entity {
     this.updated_at = new Date();
   }
 
-  static validate(entity: User) {
+  // static validate(entity: User) {
+  //   const validator = UserValidatorFactory.create();
+  //   const isValid = validator.validate(entity);
+  //   if (!isValid) {
+  //     throw new EntityValidationError(validator.errors);
+  //   }
+  // }
+
+  validate(fields?: string[]) {
     const validator = UserValidatorFactory.create();
-    const isValid = validator.validate(entity);
-    if (!isValid) {
-      throw new EntityValidationError(validator.errors);
-    }
+    return validator.validate(this.notification, this, fields);
   }
 
   static fake() {

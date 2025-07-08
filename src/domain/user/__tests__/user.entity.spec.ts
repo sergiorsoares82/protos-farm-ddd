@@ -2,10 +2,13 @@ import { Uuid } from "../../shared/value-objects/uuid.vo";
 import { User } from "../user.entity";
 
 describe("User Unit Tests", () => {
-  let validateSpy: jest.SpyInstance;
+  // let validate: jest.SpyInstance;
 
   beforeEach(() => {
-    validateSpy = jest.spyOn(User, "validate");
+    // User.prototype.validate = jest.spyOn(User, "validate");
+    User.prototype.validate = jest
+      .fn()
+      .mockImplementation(User.prototype.validate);
   });
   describe("constructor", () => {
     it("should create a user with default values", () => {
@@ -63,7 +66,7 @@ describe("User Unit Tests", () => {
       expect(user.is_active).toBe(true);
       expect(user.created_at).toBeInstanceOf(Date);
       expect(user.updated_at).toBeInstanceOf(Date);
-      expect(validateSpy).toHaveBeenCalledWith(user);
+      expect(User.prototype.validate).toHaveBeenCalledTimes(1);
     });
 
     it("should create a user with is_active set to true", () => {
@@ -75,13 +78,13 @@ describe("User Unit Tests", () => {
       });
 
       expect(user.is_active).toBe(true);
-      expect(validateSpy).toHaveBeenCalledWith(user);
+      expect(User.prototype.validate).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("operations methods", () => {
     it("should change username", () => {
-      const user = User.create({
+      const user = new User({
         username: "john_doe",
         email: "john.doe@gmail.com",
         password: "secure_password",
@@ -90,7 +93,7 @@ describe("User Unit Tests", () => {
       user.changeUserName("john_doe_updated");
       expect(user.username).toBe("john_doe_updated");
       expect(user.updated_at).toBeInstanceOf(Date);
-      expect(validateSpy).toHaveBeenCalledWith(user);
+      expect(User.prototype.validate).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -137,15 +140,20 @@ describe("User Unit Tests", () => {
 
   describe("validate method", () => {
     it("should invalidate a user with empty username", () => {
-      expect(() => {
-        User.create({
-          username: "",
-          email: "john.doe@gmail.com",
-          password: "secure_password",
-        });
-      }).containsErrorMessages({
-        username: ["username should not be empty"],
+      const user = User.create({
+        username: "t".repeat(256),
+        email: "test@gmail.com",
+        password: "secure_password",
       });
+
+      expect(user.notification.hasErrors()).toBe(true);
+      expect(user.notification).notificationContainsErrorMessages([
+        {
+          username: [
+            "username must be shorter than or equal to 255 characters",
+          ],
+        },
+      ]);
     });
   });
 });

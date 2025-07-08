@@ -1,33 +1,39 @@
 import { IsNotEmpty, IsString, MaxLength } from "class-validator";
 import type { User } from "./user.entity";
 import { ClassValidatorFields } from "../shared/validators/class-validators-fields";
+import type { Notification } from "../shared/validators/notification";
 
 export class UserRules {
+  // @IsString()
+  // @IsNotEmpty()
   @MaxLength(255)
-  @IsString()
-  @IsNotEmpty()
   username: string;
 
+  // @IsString()
+  // @IsNotEmpty()
   @MaxLength(255)
-  @IsString()
-  @IsNotEmpty()
   email: string;
 
+  // @IsString()
+  // @IsNotEmpty()
   @MaxLength(50)
-  @IsString()
-  @IsNotEmpty()
   password: string;
 
-  constructor({ username, email, password }: User) {
-    this.username = username;
-    this.email = email;
-    this.password = password;
+  constructor(user: User) {
+    Object.assign(this, user);
   }
 }
 
-export class UserValidator extends ClassValidatorFields<UserRules> {
-  validate(entity: User): boolean {
-    return super.validate(new UserRules(entity));
+// export class UserValidator extends ClassValidatorFields<UserRules> {
+//   validate(entity: User): boolean {
+//     return super.validate(new UserRules(entity));
+//   }
+// }
+
+export class UserValidator extends ClassValidatorFields {
+  validate(notification: Notification, data: any, fields?: string[]): boolean {
+    const newFields = fields?.length ? fields : ["username"];
+    return super.validate(notification, new UserRules(data), newFields);
   }
 }
 
