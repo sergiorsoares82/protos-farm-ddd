@@ -4,19 +4,22 @@ import { User } from "../../../../../domain/user/user.entity";
 import { UserModelMapper } from "../user-model-mapper";
 import type { EntityValidationError } from "../../../../../domain/shared/validators/validation.error";
 import { Uuid } from "../../../../../domain/shared/value-objects/uuid.vo";
+import { setupSequelize } from "../../../../shared/testing/helpers";
 
 describe("UserModelMapper Integration Tests", () => {
-  let sequelize: Sequelize;
+  // let sequelize: Sequelize;
 
-  beforeEach(async () => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      storage: ":memory:",
-      logging: false,
-      models: [UserModel],
-    });
-    await sequelize.sync();
-  });
+  // beforeEach(async () => {
+  //   sequelize = new Sequelize({
+  //     dialect: "sqlite",
+  //     storage: ":memory:",
+  //     logging: false,
+  //     models: [UserModel],
+  //   });
+  //   await sequelize.sync();
+  // });
+
+  setupSequelize({ models: [UserModel] });
 
   it("should throw an error when user is invalid", async () => {
     const model = UserModel.build({

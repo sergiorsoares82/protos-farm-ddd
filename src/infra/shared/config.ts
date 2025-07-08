@@ -8,7 +8,7 @@ export class Config {
     Config.readEnv();
 
     return {
-      dialect: "sqlite",
+      dialect: "sqlite" as any,
       host: Config.env.DB_HOST,
       logging: Config.env.DB_LOGGING === "true",
     };

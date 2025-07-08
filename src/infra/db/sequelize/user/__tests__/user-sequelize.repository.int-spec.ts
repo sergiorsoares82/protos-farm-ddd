@@ -9,19 +9,21 @@ import {
   UserSearchParams,
   UserSearchResult,
 } from "../../../../../domain/user/user.repository";
+import { setupSequelize } from "../../../../shared/testing/helpers";
 
 describe("UserSequelizeRepository Integration Tests", () => {
-  let sequelize: Sequelize;
+  // let sequelize: Sequelize;
   let repository: UserSequelizeRepository;
+  setupSequelize({ models: [UserModel] });
 
   beforeEach(async () => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      storage: ":memory:",
-      logging: false,
-      models: [UserModel],
-    });
-    await sequelize.sync();
+    // sequelize = new Sequelize({
+    //   dialect: "sqlite",
+    //   storage: ":memory:",
+    //   logging: false,
+    //   models: [UserModel],
+    // });
+    // await sequelize.sync();
     repository = new UserSequelizeRepository(UserModel);
   });
 

@@ -1,20 +1,23 @@
 import { DataType, Sequelize } from "sequelize-typescript";
 import { UserModel } from "../user.model";
 import { Config } from "../../../../shared/config";
+import { setupSequelize } from "../../../../shared/testing/helpers";
 
 describe("UserModel (integration tests)", () => {
-  let sequelize: Sequelize;
+  // let sequelize: Sequelize;
 
-  beforeEach(async () => {
-    console.log(Config.db());
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      storage: ":memory:",
-      logging: false,
-      models: [UserModel],
-    });
-    await sequelize.sync();
-  });
+  // beforeEach(async () => {
+  //   console.log(Config.db());
+  //   sequelize = new Sequelize({
+  //     dialect: "sqlite",
+  //     storage: ":memory:",
+  //     logging: false,
+  //     models: [UserModel],
+  //   });
+  //   await sequelize.sync();
+  // });
+
+  setupSequelize({ models: [UserModel] });
 
   test("mapping props", () => {
     const attributesMap = UserModel.getAttributes();
